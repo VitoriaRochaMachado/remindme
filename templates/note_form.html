@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ note.title|default:"Nova Nota" }} — RemindMe{% endblock %}
+
+{% block content %}
+  <h2>{% if note %}Editar nota{% else %}Criar nota{% endif %}</h2>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    {% if form.errors %}
+      <ul class="messages">
+        {% for field, errors in form.errors.items %}
+          {% for error in errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <div class="form-grid">
+      {% for field in form %}
+
+        {% if field.name == "is_public" %}
+          <div class="form-field form-field-inline">
+            <label for="id_is_public">Pública?</label>
+            <input type="checkbox" id="id_is_public" name="is_public"
+                   {% if field.value %}checked{% endif %} style="display:none;">
+            <label for="id_is_public" class="square-toggle" title="Marcar como pública"></label>
+          </div>
+
+        {% elif field.name == "notify_email" %}
+          <div class="form-field form-field-inline">
+            <label for="id_notify_email">Notificar por e-mail</label>
+            <input type="checkbox" id="id_notify_email" name="notify_email"
+                   {% if field.value %}checked{% endif %} style="display:none;">
+            <label for="id_notify_email" class="square-toggle" title="Ativar notificação por e-mail"></label>
+          </div>
+
+        {% elif field.name == "notify_in_app" %}
+          <div class="form-field form-field-inline">
+            <label for="id_notify_in_app">Notificar no site</label>
+            <input type="checkbox" id="id_notify_in_app" name="notify_in_app"
+                   {% if field.value %}checked{% endif %} style="display:none;">
+            <label for="id_notify_in_app" class="square-toggle" title="Ativar notificação no site"></label>
+          </div>
+
+        {% else %}
+          <div class="form-field">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+              <small class="help">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+              {% for error in field.errors %}
+                <p class="error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endif %}
+
+      {% endfor %}
+    </div>
+
+    <button type="submit" class="button small">Salvar</button>
+  </form>
+{% endblock %}
+

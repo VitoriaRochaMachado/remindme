@@ -1,0 +1,361 @@
+/* === Tema Azul — RemindMe (atualizado com square-button) === */
+
+:root {
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --primary-dark: #1e40af;
+  --danger: #dc2626;
+  --danger-dark: #991b1b;
+  --background: #f0f6ff;
+  --text: #1e293b;
+  --text-light: #475569;
+  --card-bg: #ffffff;
+  --border: #cbd5e1;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background: var(--background);
+  color: var(--text);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Cabeçalho */
+header {
+  background: var(--primary);
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+header h1 {
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 1rem;
+  font-weight: 500;
+  transition: opacity 0.2s ease-in-out;
+}
+
+nav a:hover {
+  opacity: 0.8;
+}
+
+/* Usuário */
+.user {
+  font-size: 0.9rem;
+}
+
+/* Botões principais */
+button,
+a.button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.2s;
+}
+
+button:hover,
+a.button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+button.secondary,
+a.button.secondary {
+  background: #fff;
+  color: var(--primary-dark);
+  border: 2px solid var(--primary);
+}
+
+button.secondary:hover,
+a.button.secondary:hover {
+  background: var(--primary-light);
+  color: #fff;
+}
+
+/* Botões menores */
+.button.small,
+button.small {
+  padding: 0.28rem 0.6rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+}
+
+.button.compact,
+button.compact {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 6px;
+}
+
+.item-actions {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+/* === Botões quadrados tipo toggle (para checkboxes) === */
+.square-toggle {
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.18s ease-in-out;
+  position: relative;
+  background: #fff;
+}
+
+/* quando marcado */
+input[type="checkbox"]:checked + .square-toggle {
+  background: var(--primary);
+  border-color: var(--primary-dark);
+}
+
+/* hover */
+.square-toggle:hover {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* alinhamento dos campos */
+.form-field-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.form-field-inline label:first-child {
+  font-weight: 500;
+  color: var(--text-light);
+  min-width: 160px;
+}
+
+/* === Botões quadrados para ações (editar/apagar/etc) === */
+.square-button {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--primary-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+}
+
+/* hover - ação principal */
+.square-button:hover {
+  background: var(--primary-light);
+  color: #fff;
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* estado "ativo" genérico */
+.square-button.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary-dark);
+}
+
+/* editar: azul */
+.square-button.edit {
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+.square-button.edit:hover {
+  background: var(--primary-light);
+  color: #fff;
+}
+
+/* apagar: vermelho */
+.square-button.delete {
+  border-color: var(--danger);
+  color: var(--danger-dark);
+}
+.square-button.delete:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger-dark);
+}
+
+/* ícones/emoji centralizados */
+.square-button span {
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* Conteúdo principal */
+main {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Formulários */
+form {
+  background: var(--card-bg);
+  padding: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 3px var(--primary-light);
+}
+
+/* Notas */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+li strong {
+  font-size: 1.1rem;
+  color: var(--primary-dark);
+}
+
+.note {
+  margin-top: 0.5rem;
+}
+
+.note-content {
+  margin-top: 0.5rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 0.8rem;
+  color: var(--text);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Mensagens */
+.messages {
+  list-style: none;
+  margin-bottom: 1rem;
+  background: #e0f2fe;
+  border-left: 5px solid var(--primary);
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+.messages li {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-left: 5px solid #ef4444;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* Rodapé */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: var(--primary-dark);
+  color: #fff;
+  font-size: 0.9rem;
+  position: relative;
+  margin-top: 3rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* In-app notifications banner */
+.in-app-notifications {
+  background: #f0f9ff;
+  border-left: 4px solid var(--primary);
+  padding: 0.6rem 0;
+}
+
+.in-app-notifications .container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.in-app-list {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin-left: 0.5rem;
+  align-items: center;
+}
+
+.in-app-list li {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  background: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.in-app-list .notif-text {
+  color: var(--text);
+  font-weight: 500;
+  margin-right: 0.5rem;
+}

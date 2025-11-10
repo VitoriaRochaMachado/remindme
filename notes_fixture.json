@@ -1,0 +1,62 @@
+[
+  {
+    "model": "notes.note",
+    "pk": 1,
+    "fields": {
+      "owner": 1,
+      "title": "Nota 1 de exemplo",
+      "content": "Esta é a nota número 1, criada automaticamente para teste.",
+      "created_at": "2025-11-06T10:00:00",
+      "is_public": false,
+      "public_token": "11111111-1111-1111-1111-111111111111"
+    }
+  },
+  {
+    "model": "notes.note",
+    "pk": 2,
+    "fields": {
+      "owner": 1,
+      "title": "Nota 2 de exemplo",
+      "content": "Esta é a nota número 2, criada automaticamente para teste.",
+      "created_at": "2025-11-06T10:00:00",
+      "is_public": true,
+      "public_token": "22222222-2222-2222-2222-222222222222"
+    }
+  },
+  {
+    "model": "notes.note",
+    "pk": 3,
+    "fields": {
+      "owner": 1,
+      "title": "Nota 3 de exemplo",
+      "content": "Esta é a nota número 3, criada automaticamente para teste.",
+      "created_at": "2025-11-06T10:00:00",
+      "is_public": false,
+      "public_token": "33333333-3333-3333-3333-333333333333"
+    }
+  },
+  {
+    "model": "notes.note",
+    "pk": 4,
+    "fields": {
+      "owner": 1,
+      "title": "Nota 4 de exemplo",
+      "content": "Esta é a nota número 4, criada automaticamente para teste.",
+      "created_at": "2025-11-06T10:00:00",
+      "is_public": true,
+      "public_token": "44444444-4444-4444-4444-444444444444"
+    }
+  },
+  {
+    "model": "notes.note",
+    "pk": 5,
+    "fields": {
+      "owner": 1,
+      "title": "Nota 5 de exemplo",
+      "content": "Esta é a nota número 5, criada automaticamente para teste.",
+      "created_at": "2025-11-06T10:00:00",
+      "is_public": false,
+      "public_token": "55555555-5555-5555-5555-555555555555"
+    }
+  }
+]

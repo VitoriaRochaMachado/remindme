@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}Home — RemindMe{% endblock %}
+
+{% block content %}
+  <h2>Suas anotações</h2>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    {% if form.errors %}
+      <ul class="messages">
+        {% for field, errors in form.errors.items %}
+          {% for error in errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <div class="form-grid">
+      {% for field in form %}
+
+        {% if field.name == "is_public" %}
+          <div class="form-field form-field-inline">
+            <label for="id_is_public">Pública?</label>
+            <input type="checkbox" id="id_is_public" name="is_public"
+                   {% if field.value %}checked{% endif %} style="display:none;">
+            <label for="id_is_public" class="square-toggle" title="Marcar como pública"></label>
+          </div>
+
+        {% elif field.name == "notify_email" %}
+          <div class="form-field form-field-inline">
+            <label for="id_notify_email">Notificar por e-mail</label>
+            <input type="checkbox" id="id_notify_email" name="notify_email"
+                   {% if field.value %}checked{% endif %} style="display:none;">
+            <label for="id_notify_email" class="square-toggle" title="Ativar notificação por e-mail"></label>
+          </div>
+
+        {% elif field.name == "notify_in_app" %}
+          <div class="form-field form-field-inline">
+            <label for="id_notify_in_app">Notificar no site</label>
+            <input type="checkbox" id="id_notify_in_app" name="notify_in_app"
+                   {% if field.value %}checked{% endif %} style="display:none;">
+            <label for="id_notify_in_app" class="square-toggle" title="Ativar notificação no site"></label>
+          </div>
+
+        {% else %}
+          <div class="form-field">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+              <small class="help">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+              {% for error in field.errors %}
+                <p class="error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endif %}
+
+      {% endfor %}
+    </div>
+
+    <button type="submit" class="button small">Criar anotação</button>
+  </form>
+
+  <hr>
+
+  <h3>Suas notas</h3>
+  <ul>
+    {% for note in notes %}
+      <li>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem;">
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <strong>{{ note.title }}</strong>
+            <span class="meta" style="font-size:0.9rem; color:var(--text-light);">· {{ note.created_at|date:"d/m/Y H:i" }}</span>
+          </div>
+
+          <div class="item-actions" aria-hidden="false">
+            {# Editar: quadrado azul com lápis #}
+            <a href="{% url 'notes:note_edit' note.pk %}" class="square-button edit" title="Editar">
+              <span>✏️</span>
+            </a>
+
+            {# Apagar: quadrado vermelho com lixeira #}
+            <a href="{% url 'notes:note_delete' note.pk %}" class="square-button delete" title="Apagar">
+              <span>🗑️</span>
+            </a>
+
+            {% if note.is_public %}
+              <a href="{% url 'notes:public_detail' note.public_token %}" target="_blank" class="square-button" title="Abrir link público">
+                <span>🔗</span>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:0.8rem;">
+          <button class="button toggle-content small" type="button" aria-expanded="false">Mostrar conteúdo</button>
+          <div class="note-content" style="display: none;">
+            <p>{{ note.content }}</p>
+          </div>
+        </div>
+
+      </li>
+    {% empty %}
+      <li>Você ainda não tem anotações.</li>
+    {% endfor %}
+  </ul>
+
+  <h3>Próximos lembretes</h3>
+  <ul>
+    {% for r in reminders %}
+      <li>{{ r.due_date|date:"d/m/Y H:i" }} — {{ r.note.title }}</li>
+    {% empty %}
+      <li>Sem lembretes futuros.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}RemindMe{% endblock %}</title>
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <header>
+    {% comment %} In-app notifications banner (colar logo após header) {% endcomment %}
+    {% if user.is_authenticated and in_app_reminders %}
+    <div class="in-app-notifications">
+      <div class="container">
+        <strong>🔔 Você tem {{ in_app_reminders|length }} lembrete(s):</strong>
+        <ul class="in-app-list">
+          {% for r in in_app_reminders %}
+          <li>
+            <span class="notif-text">{{ r.due_date|date:"d/m/Y H:i" }} — {{ r.note.title }}</span>
+            
+            <form method="post" action="{% url 'notes:mark_reminder_read' r.pk %}" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="square-button small" title="Marcar como lido">✔️</button>
+            </form>
+            
+            <a href="{% url 'notes:note_edit' r.note.pk %}" class="square-button small" title="Abrir anotação">✏️</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+
+    <h1>RemindMe</h1>
+    <nav>
+      <a href="{% url 'notes:home' %}">Home</a> |
+      <a href="{% url 'notes:public_list' %}">Públicas</a> |
+      <a href="{% url 'notes:creditos' %}">Créditos</a>
+    </nav>
+    <div class="user">
+      {% if user.is_authenticated %}
+      {{ user.first_name }} {{ user.last_name }} |
+      <form method="post" action="{% url 'logout' %}" style="display:inline;">{% csrf_token %}
+        <button type="submit">Sair</button>
+      </form>
+      {% else %}
+      <a href="{% url 'login' %}">Entrar</a> |
+      <a href="{% url 'notes:signup' %}">Cadastrar</a>
+      {% endif %}
+
+    </div>
+  </header>
+
+  <main>
+    {% if messages %}
+      <ul class="messages">
+        {% for m in messages %}
+          <li>{{ m }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <small>Feito com propósito 💙</small>
+  </footer>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const toggles = document.querySelectorAll('.toggle-content');
+  toggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const content = btn.nextElementSibling;
+      const visible = content.style.display === 'block';
+      content.style.display = visible ? 'none' : 'block';
+      btn.textContent = visible ? 'Mostrar conteúdo' : 'Ocultar conteúdo';
+    });
+  });
+});
+</script>
+
+</body>
+</html>
+

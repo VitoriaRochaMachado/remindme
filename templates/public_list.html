@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Anotações Públicas</h2>
+  <ul>
+  {% for note in notes %}
+    <li><a href="{% url 'notes:public_detail' note.public_token %}">{{ note.title }}</a> — {{ note.owner.get_full_name|default:note.owner.username }}</li>
+  {% empty %}
+    <li>Sem notas públicas.</li>
+  {% endfor %}
+  </ul>
+{% endblock %}
