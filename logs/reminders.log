@@ -289,3 +289,10 @@ Processo finalizado.
 Erro ao enviar e-mail: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b0c9634f56sm15309703b3a.4 - gsmtp', 'no-reply@remindme.local')
 Verificando 1 lembretes pendentes...
 Processo finalizado.
+Erro ao enviar e-mail: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-29846334db5sm12446965ad.32 - gsmtp', 'no-reply@remindme.local')
+Verificando 1 lembretes pendentes...
+Processo finalizado.
+Erro ao enviar e-mail: (530, b'5.7.0 Authentication Required. For more information, go to\n5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 41be03b00d2f7-ba8ffd3f6easm16142329a12.21 - gsmtp', 'no-reply@remindme.local')
+Verificando 1 lembretes pendentes...
+Processo finalizado.
+^C
