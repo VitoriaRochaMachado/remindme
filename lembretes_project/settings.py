@@ -16,6 +16,9 @@ DEBUG = os.getenv("DEBUG", "False").lower() in ("1", "true", "yes")
 # ALLOWED_HOSTS from env (comma-separated). Default allows localhost for dev.
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(",")
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
+
 # ---------- APPLICATIONS ----------
 INSTALLED_APPS = [
     "django.contrib.admin",
