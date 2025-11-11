@@ -5,6 +5,30 @@ from django.core.management.utils import get_random_secret_key
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+# settings.py
+
+# 1. URL base para seus arquivos estáticos (ex: https://dominio.com/static/styles.css)
+STATIC_URL = '/static/'
+
+# 2. LOCAL DE COLETA: O diretório para onde o Django copiará TODOS os arquivos estáticos.
+# Este diretório será servido pelo WhiteNoise.
+# Usamos 'BASE_DIR / 'staticfiles'' como um padrão, mas você pode usar 'staticfiles_build'.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+# Se a sua estrutura for 'staticfiles\styles.css', o STATIC_ROOT deve ser o destino final.
+
+# 3. DIRETÓRIOS ADICIONAIS: Onde o Django DEVE PROCURAR arquivos estáticos (além das pastas 'static' de cada app).
+# Se você tiver uma pasta raiz chamada 'static_assets' com seu CSS:
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'staticfiles'),
+    # Se você está usando 'staticfiles' como sua pasta de origem:
+    # os.path.join(BASE_DIR, 'staticfiles'), 
+]
+
+# Configuração extra para WhiteNoise
+# O WhiteNoise comprime e armazena em cache o CSS, JS, etc.
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 
 # ---------- BASIC / SECURITY ----------
 # SECRET_KEY must come from env in production. If not provided in local dev, generate a random one.
@@ -33,6 +57,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'django.contrib.sessions.middleware.SessionMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
